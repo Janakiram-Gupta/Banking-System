@@ -21,8 +21,13 @@ class bankingSystem {
         print("Hi your account has been created successfully. Your account number is :\n\n\(self.accNumb)\n")
     }
 }
-
+//create an empty array
 var customersDetails = [bankingSystem]()
+
+//define the location of the file on the local machine
+let directoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+//define the file by its name and rtf as extension
+let fileURL = URL(fileURLWithPath: "bankingsystem",relativeTo: directoryURL).appendingPathExtension("txt")
 
 // method to generate account number while creating a new bank account
 func generateAccountNumber() -> Int {
@@ -232,12 +237,31 @@ if readLine()! == "yes" {
             }
             let acntNumb = generateAccountNumber()
             customersDetails.append(bankingSystem(accNumb : acntNumb, accName : accName, accYear : Year, accGender : accGender , accType : accType, accBalance : accBalance))
+			
+			writeDetailsToFile()			
+			
             bankingSystem(accNumb : acntNumb, accName : accName, accYear : Year, accGender : accGender , accType : accType, accBalance : accBalance).printDetails()
             
         print("Do you want to open/create another account in our bank ? yes/no")
     } while(readLine()! == "yes")
 } else {
     print("Thank you so much for approaching to our banking services. Have a nice day !!")
+}
+
+func writeDetailsToFile(){
+	//merging all lines from the array into string format
+    var fileString = ""
+    for prod in prodList{
+        fileString += prod.mergeFields()
+    }
+    //convert the file string into data
+    let data = fileString.data(using: .utf8)
+    do{
+        //save the data into the file
+        try data?.write(to: fileURL)
+    } catch {
+        print("error: sorry unable to save data into the file")
+    }
 }
 
 // logic where banking system operations starts
