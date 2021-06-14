@@ -24,8 +24,11 @@ class bankingSystem {
 }
 //create an empty array
 var customersDetails = [bankingSystem]()
+// adding 2 sample records in the banking system array
+customersDetails.append(bankingSystem(accNumb : 3494821399, accName : "Janakiram Gupta", accYear : 1994, accGender : "male" , accType : "Current", accBalance : 2500.0))
+customersDetails.append(bankingSystem(accNumb : 0040016453, accName : "Akhil", accYear : 1995, accGender : "male" , accType : "Current", accBalance : 2000.0))
 
-// method to generate account number while creating a new bank account
+// method to generate '10 digit' randomaccount number while creating a new bank account
 func generateAccountNumber() -> Int {
     return Int.random(in: 1000000000..<5000000000)
 }
@@ -262,7 +265,7 @@ if userOption == "yes" {
                 
                 print("\nWant to perform more operations on your bank account - \(entrdAccNumb) ? yes/no")
             } while(readLine()! == "yes")
-        } else if checkFlag == "not-exists" {
+        } else {
             print("Your entered account number is not valid.")
                 
             print("\nDo you want to perform any other operations on your bank account ? yes/no")
