@@ -1,3 +1,4 @@
+
 import Foundation
 
 class bankingSystem {
@@ -23,11 +24,6 @@ class bankingSystem {
 }
 //create an empty array
 var customersDetails = [bankingSystem]()
-
-//define the location of the file on the local machine
-let directoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-//define the file by its name and rtf as extension
-let fileURL = URL(fileURLWithPath: "bankingsystem",relativeTo: directoryURL).appendingPathExtension("txt")
 
 // method to generate account number while creating a new bank account
 func generateAccountNumber() -> Int {
@@ -85,8 +81,8 @@ func updateAccountBalance(accNumber: Int, operationType : String, enteredAmount 
 func showYourAccountAllDetails(accNumber: Int){
     print("**************************************************************\n")
     for eachCustomer in customersDetails {
-        if eachCustomer.accNumb == accNumber {            
-			print("Account Number - \(accNumber) \nAccount Holder Name - \(eachCustomer.accName) \nYear of Birth - \(eachCustomer.accYear) \nGender - \(eachCustomer.accGender) \nAccount type - \(eachCustomer.accType) \nCurrent Balance - \(eachCustomer.accBalance)")
+        if eachCustomer.accNumb == accNumber {
+            print("Account Number - \(accNumber) \nAccount Holder Name - \(eachCustomer.accName) \nYear of Birth - \(eachCustomer.accYear) \nGender - \(eachCustomer.accGender) \nAccount type - \(eachCustomer.accType) \nCurrent Balance - \(eachCustomer.accBalance)")
         }
     }
     print("\n**************************************************************\n")
@@ -105,8 +101,8 @@ func updateBankAccountDetails(accNumber: Int){
             let updatedName = readLine()!
             
             for eachCustomer in customersDetails {
-                if eachCustomer.accNumb == accNumber {            
-        			eachCustomer.accName = updatedName
+                if eachCustomer.accNumb == accNumber {
+                    eachCustomer.accName = updatedName
                 }
             }
             
@@ -115,8 +111,8 @@ func updateBankAccountDetails(accNumber: Int){
             let updatedYearOfBirth = Int(readLine()!)!
             
             for eachCustomer in customersDetails {
-                if eachCustomer.accNumb == accNumber {            
-        			eachCustomer.accYear = updatedYearOfBirth
+                if eachCustomer.accNumb == accNumber {
+                    eachCustomer.accYear = updatedYearOfBirth
                 }
             }
             
@@ -125,8 +121,8 @@ func updateBankAccountDetails(accNumber: Int){
             let updatedGender = readLine()!
             
             for eachCustomer in customersDetails {
-                if eachCustomer.accNumb == accNumber {            
-        			eachCustomer.accGender = updatedGender
+                if eachCustomer.accNumb == accNumber {
+                    eachCustomer.accGender = updatedGender
                 }
             }
         case 4:
@@ -140,12 +136,12 @@ func updateBankAccountDetails(accNumber: Int){
             }
             
             for eachCustomer in customersDetails {
-                if eachCustomer.accNumb == accNumber {            
-        			eachCustomer.accType = updatedAccountType
+                if eachCustomer.accNumb == accNumber {
+                    eachCustomer.accType = updatedAccountType
                 }
             }
         default:
-            print("Irrelevant option has been selected")    
+            print("Irrelevant option has been selected")
     }
     print("Your details have been updated. Displaying your account details below for reference\n")
     showYourAccountAllDetails(accNumber: accNumber)
@@ -237,31 +233,13 @@ if readLine()! == "yes" {
             }
             let acntNumb = generateAccountNumber()
             customersDetails.append(bankingSystem(accNumb : acntNumb, accName : accName, accYear : Year, accGender : accGender , accType : accType, accBalance : accBalance))
-			
-			writeDetailsToFile()			
-			
+                        
             bankingSystem(accNumb : acntNumb, accName : accName, accYear : Year, accGender : accGender , accType : accType, accBalance : accBalance).printDetails()
             
         print("Do you want to open/create another account in our bank ? yes/no")
     } while(readLine()! == "yes")
 } else {
     print("Thank you so much for approaching to our banking services. Have a nice day !!")
-}
-
-func writeDetailsToFile(){
-	//merging all lines from the array into string format
-    var fileString = ""
-    for prod in prodList{
-        fileString += prod.mergeFields()
-    }
-    //convert the file string into data
-    let data = fileString.data(using: .utf8)
-    do{
-        //save the data into the file
-        try data?.write(to: fileURL)
-    } catch {
-        print("error: sorry unable to save data into the file")
-    }
 }
 
 // logic where banking system operations starts
